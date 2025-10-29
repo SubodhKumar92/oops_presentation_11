@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Smart Health Monitoring — Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --accent1: linear-gradient(135deg,#2dd4bf 0%, #60a5fa 100%);
+    --accent2:#7c3aed;
+    --muted: #94a3b8;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial, sans-serif;background:linear-gradient(180deg,#071029 0%, #071a2a 100%);color:var(--white)}
+  .wrap{max-width:1100px;margin:24px auto;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));box-shadow: 0 8px 30px rgba(2,6,23,0.7);}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .logo{display:flex;gap:12px;align-items:center}
+  .logo .badge{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#06b6d4,#6366f1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;box-shadow:0 6px 18px rgba(99,102,241,0.2)}
+  .title{font-weight:800;font-size:18px}
+  .subtitle{color:var(--muted);font-size:13px}
+  .stage{min-height:520px;position:relative;padding:30px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));overflow:hidden}
+  .slide{display:none;height:100%}
+  .slide.active{display:block}
+
+  /* Title Slide */
+  .titleBig{font-family:"Inter";font-weight:800;font-size:48px;color:linear-gradient(90deg,#7dd3fc,#a78bfa);margin:6px 0}
+  .groupList{margin-top:18px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow: inset 0 1px 0 rgba(255,255,255,0.02)}
+  .member{font-weight:600;margin:6px 0;color:#e6eef8}
+
+  /* Topics slide */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .topicCard{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+  .topicTitle{font-weight:700;margin-bottom:8px}
+  .topicText{color:var(--muted);line-height:1.45;font-size:14px}
+
+  /* Code slide */
+  pre{background:#020617;border-radius:10px;padding:14px;overflow:auto;max-height:420px;font-family:"JetBrains Mono", monospace;font-size:13px;line-height:1.35;color:#cbd5e1}
+  code{white-space:pre}
+  .code-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .chip{background:#0b1220;padding:6px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.02)}
+
+  /* Flowchart */
+  .flowWrap{display:flex;justify-content:center;align-items:center;height:420px}
+  svg.flow{max-width:100%;height:auto;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:8px;padding:10px}
+
+  /* Navigation */
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+  .btn{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 18px;border-radius:10px;color:var(--white);font-weight:700;cursor:pointer;transition:all .18s;min-width:120px}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+  .btn.primary{background:linear-gradient(90deg,#06b6d4,#6366f1);border:0}
+  .footerNote{display:flex;justify-content:center;color:var(--muted);font-size:13px;margin-top:10px}
+  .pageNum{font-weight:700;color:#cbd5e1}
+
+  /* Responsive */
+  @media (max-width:880px){
+    .grid{grid-template-columns:1fr}
+    .titleBig{font-size:34px}
+    .stage{padding:18px}
+    .wrap{margin:8px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="Presentation">
+    <header>
+      <div class="logo">
+        <div class="badge">SH</div>
+        <div>
+          <div class="title">Smart Health Monitoring System</div>
+  
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700;color:#e6eef8">IIITV ICD</div>
+       
+      </div>
+    </header>
+
+    <main class="stage" id="stage">
+      <!-- SLIDE: Title -->
+      <section class="slide active" data-title="Title">
+        <div style="display:flex;gap:24px;align-items:center">
+          <div style="flex:1">
+            <div class="titleBig">SMART HEALTH<br><span style="color:#7dd3fc">MONITORING</span> SYSTEM</div>
+            <div class="subtitle" style="margin-top:8px">A compact hospital management simulator written in C++</div>
+
+            <div class="groupList">
+              <div style="font-weight:800;color:#dbeafe">Group Members</div>
+              <div class="member">• Soham Vora — 202411097</div>
+              <div class="member">• Subodh Kumar — 202411092</div>
+              <div class="member">• Devraj Singh — 202411035</div>
+              <div class="member">• Shiva Kumar — 202411039</div>
+            </div>
+          </div>
+
+          <div style="width:300px;display:flex;flex-direction:column;gap:12px;align-items:center">
+            <div style="width:100%;height:160px;border-radius:12px;background:linear-gradient(135deg,#06b6d4,#6366f1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:white;box-shadow:0 12px 30px rgba(99,102,241,0.18)">
+              Smart Health
+            </div>
+            <div style="color:var(--muted);font-size:13px;text-align:center">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE: Topics (list) -->
+      <section class="slide" data-title="Topics">
+        <div>
+          <div style="font-weight:800;font-size:28px;margin-bottom:10px">Topics Used</div>
+          <div class="grid" style="margin-top:8px">
+            <div class="topicCard">
+              <div class="topicTitle">File Handling</div>
+              <div class="topicText">Store and retrieve persistent data using files (fstream, ifstream, ofstream).</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Exception Handling</div>
+              <div class="topicText">Use try / catch / throw to gracefully handle runtime errors and invalid input.</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Vectors & Maps</div>
+              <div class="topicText">STL containers: vector (dynamic array) and map (key-value store) to manage records efficiently.</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Inheritance & Polymorphism</div>
+              <div class="topicText">Create derived classes from base classes (Person → Patient/Doctor) and override methods.</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Enum Class & Dynamic Memory</div>
+              <div class="topicText">Enum class for fixed states (Normal/Warning/Critical). Dynamic allocation using new/delete.</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Data Serialization</div>
+              <div class="topicText">Convert object data to text for saving and reloading (CSV-like serialization).</div>
+            </div>
+            <div class="topicCard">
+              <div class="topicTitle">Class Relationships</div>
+              <div class="topicText">Hospital (controller) manages Doctors and Patients. Doctors assigned to patients; vitals belong to patients.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE: Explanations (detailed, may span multiple) -->
+ <!-- Explanations - 1 -->
+<!-- SLIDE 1: File Handling -->
+<section class="slide" data-title="File Handling">
+  <h2>1. File Handling</h2>
+  <p class="topicText">
+    Enables saving and retrieving data from files using <code>fstream</code>, <code>ifstream</code>, and <code>ofstream</code>.
+    Used for storing patient or doctor records permanently.
+  </p>
+  <pre><code>
+FUNCTION saveData():
+    OPEN "patients.txt" in write mode
+    FOR EACH patient IN patientsList:
+        WRITE patient.name, patient.age, patient.vitals TO file
+    CLOSE file
+
+FUNCTION loadData():
+    OPEN "patients.txt" in read mode
+    WHILE NOT end of file:
+        READ patient details
+        ADD patient TO patientsList
+    CLOSE file
+  </code></pre>
+</section>
+
+<!-- SLIDE 2: Exception Handling -->
+<section class="slide" data-title="Exception Handling">
+  <h2>2. Exception Handling</h2>
+  <p class="topicText">
+    Handles runtime errors safely without crashing the program using <code>try</code>, <code>catch</code>, and <code>throw</code>.
+  </p>
+  <pre><code>
+TRY:
+    INPUT age
+    IF age <= 0 THEN
+        THROW "Invalid Age"
+CATCH error:
+    DISPLAY "Error: Please enter valid age"
+  </code></pre>
+</section>
+
+<!-- SLIDE 3: Vectors & Maps -->
+<section class="slide" data-title="Vectors & Maps">
+  <h2>3. Vectors & Maps</h2>
+  <p class="topicText">
+    <strong>Vector:</strong> dynamic array (auto resizing).  
+    <strong>Map:</strong> key-value pairs for fast lookup.
+  </p>
+  <pre><code>
+DECLARE VECTOR patientsList
+DECLARE MAP doctorPatientMap
+
+ADD newPatient TO patientsList
+ASSIGN doctorPatientMap[doctorName] = patientName
+  </code></pre>
+</section>
+
+<!-- SLIDE 4: Inheritance & Polymorphism -->
+<section class="slide" data-title="Inheritance & Polymorphism">
+  <h2>4. Inheritance & Polymorphism</h2>
+  <p class="topicText">
+    Allows code reusability and dynamic behavior through base and derived classes.
+  </p>
+  <pre><code>
+CLASS Person:
+    name, age, gender
+    FUNCTION displayInfo()
+
+CLASS Doctor EXTENDS Person:
+    specialization, salary
+    FUNCTION displayInfo()  // override
+
+CLASS Patient EXTENDS Person:
+    disease, vitals
+    FUNCTION displayInfo()  // override
+  </code></pre>
+</section>
+
+<!-- SLIDE 5: Enum Class & Dynamic Memory -->
+<section class="slide" data-title="Enum & Dynamic Memory">
+  <h2>5. Enum Class & Dynamic Memory</h2>
+  <p class="topicText">
+    <strong>Enum Class:</strong> represents constant states.  
+    <strong>Dynamic Memory:</strong> allocates objects at runtime using <code>new</code> and <code>delete</code>.
+  </p>
+  <pre><code>
+ENUM HealthStatus { NORMAL, WARNING, CRITICAL }
+
+FUNCTION checkVitals(temp, bp, hr):
+    IF temp > 38 OR bp > 140 OR hr > 100 THEN
+        RETURN HealthStatus.WARNING
+    ELSE
+        RETURN HealthStatus.NORMAL
+
+DECLARE POINTER newPatient = NEW Patient()
+DELETE newPatient
+  </code></pre>
+</section>
+
+<!-- SLIDE 6: Data Serialization -->
+<section class="slide" data-title="Data Serialization">
+  <h2>6. Data Serialization</h2>
+  <p class="topicText">
+    Converts objects into a storable text format (CSV-like) and reconstructs them during loading.
+  </p>
+  <pre><code>
+FUNCTION serialize(patient):
+    RETURN patient.name + "," + patient.age + "," + patient.disease
+
+FUNCTION deserialize(line):
+    SPLIT line by ","
+    CREATE new Patient object
+    RETURN Patient
+  </code></pre>
+</section>
+
+<!-- SLIDE 7: Class Relationships -->
+<section class="slide" data-title="Class Relationships">
+  <h2>7. Class Relationships</h2>
+  <p class="topicText">
+    The <strong>Hospital</strong> class manages the system — holds vectors of patients and doctors, maps for bed allocation,
+    and functions for assignments and reports.
+  </p>
+  <pre><code>
+CLASS Hospital:
+    LIST doctors
+    LIST patients
+
+    FUNCTION addDoctor()
+    FUNCTION addPatient()
+    FUNCTION assignDoctorToPatient()
+    FUNCTION displayReport()
+  </code></pre>
+</section>
+
+
+      <!-- SLIDE: Code header (JS will generate code pages below) -->
+      <section class="slide" data-title="Code Index">
+        <div>
+          <div style="font-weight:800;font-size:24px;margin-bottom:8px">Code (C++)</div>
+          <div class="topicText">The full project C++ source is shown across the following slides. Use Next / Back to navigate through code pages.</div>
+        </div>
+      </section>
+
+      <!-- Container for generated code slides -->
+      <div id="generated-code-slides"></div>
+
+      <!-- SLIDE: Flowchart -->
+      <section class="slide" data-title="Flowchart">
+        <div>
+          <div style="font-weight:800;font-size:22px;margin-bottom:10px">System Flowchart</div>
+          <div class="flowWrap" aria-hidden="false">
+            <!-- SVG flowchart embedded -->
+            <svg class="flow" viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flowchart">
+              <defs>
+                <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+                </filter>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#06b6d4"/>
+                  <stop offset="1" stop-color="#6366f1"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Start -->
+              <rect x="420" y="20" rx="14" ry="14" width="160" height="48" fill="url(#g1)" />
+              <text x="500" y="52" fill="#fff" font-weight="700" font-size="14" text-anchor="middle">Start</text>
+
+              <!-- Add Doctor -->
+              <rect x="80" y="120" rx="10" ry="10" width="200" height="56" fill="#0b1220" stroke="#2dd4bf" stroke-width="2" filter="url(#shadow)"/>
+              <text x="180" y="155" fill="#cdeff7" font-weight="700" font-size="13">Add Doctor</text>
+
+              <!-- Add Patient -->
+              <rect x="320" y="120" rx="10" ry="10" width="200" height="56" fill="#0b1220" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+              <text x="420" y="155" fill="#cfe6ff" font-weight="700" font-size="13">Add Patient</text>
+
+              <!-- Record Vitals -->
+              <rect x="560" y="120" rx="10" ry="10" width="240" height="56" fill="#0b1220" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+              <text x="680" y="155" fill="#e7daff" font-weight="700" font-size="13">Record Vitals</text>
+
+              <!-- Calculate Bill -->
+              <rect x="420" y="220" rx="10" ry="10" width="240" height="56" fill="#022033" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
+              <text x="540" y="255" fill="#dff6ff" font-weight="700" font-size="13">Calculate Bill</text>
+
+              <!-- Show Reports -->
+              <rect x="180" y="320" rx="10" ry="10" width="240" height="56" fill="#071428" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+              <text x="300" y="355" fill="#dbeeff" font-weight="700" font-size="13">Show Reports</text>
+
+              <!-- Discharge -->
+              <rect x="520" y="320" rx="10" ry="10" width="240" height="56" fill="#071428" stroke="#7c3aed" stroke-width="2" filter="url(#shadow)"/>
+              <text x="640" y="355" fill="#f0eaff" font-weight="700" font-size="13">Discharge Patient</text>
+
+              <!-- Save & Exit -->
+              <rect x="420" y="420" rx="10" ry="10" width="160" height="56" fill="url(#g1)" />
+              <text x="500" y="455" fill="#fff" font-weight="700" font-size="13" text-anchor="middle">Save & Exit</text>
+
+              <!-- Arrows -->
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                  <path d="M0 0 L10 5 L0 10 z" fill="#9fbce3"/>
+                </marker>
+              </defs>
+
+              <line x1="500" y1="68" x2="500" y2="120" stroke="#8fbfe8" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="280" y1="150" x2="320" y2="150" stroke="#9fbce3" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="520" y1="150" x2="560" y2="150" stroke="#b9a8ff" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="680" y1="176" x2="680" y2="220" stroke="#9fd8ff" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="500" y1="276" x2="420" y2="276" stroke="#9fd8ff" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="300" y1="176" x2="300" y2="320" stroke="#9fd8ff" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="540" y1="276" x2="540" y2="320" stroke="#9fd8ff" stroke-width="2" marker-end="url(#arrow)"/>
+              <line x1="540" y1="376" x2="500" y2="420" stroke="#8fbfe8" stroke-width="2" marker-end="url(#arrow)"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE: Thank you -->
+      <section class="slide" data-title="Thanks">
+        <div>
+          <div style="font-weight:800;font-size:32px;margin-bottom:10px">THANK YOU!</div>
+          <div class="topicText" style="margin-bottom:10px">Presented by IIIT Vadodara Students</div>
+          <div style="font-weight:700">Soham Vora | Subodh Kumar | Devraj Singh | Shiva Kumar</div>
+         
+        </div>
+      </section>
+
+    </main>
+
+    <div class="nav" aria-hidden="false">
+      <button id="backBtn" class="btn" title="Previous slide">⬅ Back</button>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="pageNum" id="pageIndicator">Slide 1 / 1</div>
+        <button id="nextBtn" class="btn primary" title="Next slide">Next ➡</button>
+      </div>
+    </div>
+
+    <div class="footerNote" aria-hidden="false">
+    </div>
+  </div>
+
+<script>
+/* -----------------------------
+   Slide navigation logic
+   ----------------------------- */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const generatedContainer = document.getElementById('generated-code-slides');
+const backBtn = document.getElementById('backBtn');
+const nextBtn = document.getElementById('nextBtn');
+const pageIndicator = document.getElementById('pageIndicator');
+
+let dynamicSlides = []; // will include generated code slides
+let allSlides = []; // combined
+let current = 0;
+
+/* -----------------------------
+   The full C++ code (as provided) 
+   It will be split by lines into pages automatically.
+   You can change LINES_PER_PAGE to alter how many lines per code slide.
+   ----------------------------- */
+const cppCode = `#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <limits>
+#include <ctime>
+#include <sstream>
+#include <algorithm>
+#include <map>
+#include <stdexcept>
+using namespace std;
+
+enum class VitalStatus { Normal, Warning, Critical };
+class vit;
+class pat;
+
+class Person {
+protected:
+    string name, id;
+    int age;
+public:
+    Person(string n = "NA", int a = 0, string i = "NA") : name(n), age(a), id(i) {}
+    virtual ~Person() {}
+    virtual void display() const {
+        cout << "ID: " << id << " | Name: " << name << " | Age: " << age;
+    }
+    string get_id() const { return id; }
+    string get_name() const { return name; }
+    int get_age() const { return age; }
+};
+
+class vit {
+private:
+    float temp, bp, hr, oxy, weight, height;
+    string time_stamp;
+public:
+    vit(float t = 0, float b = 0, float h = 0, float o = 0, float w = 1, float ht = 1)
+        : temp(t), bp(b), hr(h), oxy(o), weight(w), height(ht) {
+        time_t now = time(0);
+        time_stamp = ctime(&now);
+        time_stamp.pop_back();
+    }
+    VitalStatus status() const {
+        if (temp > 38 || bp > 140 || hr > 120 || oxy < 90) return VitalStatus::Critical;
+        if (temp > 37 || bp > 130 || hr > 100 || oxy < 95) return VitalStatus::Warning;
+        return VitalStatus::Normal;
+    }
+    float bmi() const { return weight / (height * height); }
+    void advise() const {
+        cout << "Vital Status: " << status_str() << endl;
+        float b = bmi();
+        cout << "BMI = " << b;
+        if (b < 18.5) cout << " (Underweight)\\n";
+        else if (b > 25) cout << " (Overweight)\\n";
+        else cout << " (Normal)\\n";
+    }
+    void show() const {
+        cout << "-> Time: " << time_stamp << " | ";
+        cout << "Temp: " << temp << "°C, "
+             << "BP: " << bp << " mmHg, "
+             << "HR: " << hr << " bpm, "
+             << "Oxy: " << oxy << "%, "
+             << "BMI: " << bmi() << endl;
+    }
+    string status_str() const {
+        switch (status()) {
+            case VitalStatus::Critical: return "Critical";
+            case VitalStatus::Warning: return "Warning";
+            case VitalStatus::Normal: return "Normal";
+            default: return "Unknown";
+        }
+    }
+    string serialize() const {
+        ostringstream ss;
+        ss << temp << "," << bp << "," << hr << "," << oxy << "," << weight << "," << height << "," << time_stamp;
+        return ss.str();
+    }
+};
+
+class pat : public Person {
+private:
+    string disease, doctor_name;
+    int bed_no;
+    float bill;
+    int initial_stay_days;
+    static int total_pat;
+    vector<vit*> vitals_history;
+public:
+    pat(string n = "", int a = 0, string i = "NA", string d = "NA", int bed = 0, int days = 1)
+        : Person(n, a, i), disease(d), bed_no(bed), initial_stay_days(days), bill(0) { total_pat++; }
+    ~pat() { for (auto v : vitals_history) delete v; total_pat--; }
+    void assign_doctor(string dname) { doctor_name = dname; }
+    void add_vitals(vit* v) { vitals_history.push_back(v); }
+    void set_bill(float b) { bill = b; }
+    int get_bed_no() const { return bed_no; }
+    string get_doctor_name() const { return doctor_name; }
+    string get_disease() const { return disease; }
+    int get_stay_days() const { return initial_stay_days; }
+    float get_bill() const { return bill; }
+    VitalStatus get_latest_status() const {
+        if (!vitals_history.empty()) return vitals_history.back()->status();
+        return VitalStatus::Normal;
+    }
+    string get_latest_status_str() const {
+        if (!vitals_history.empty()) return vitals_history.back()->status_str();
+        return "No Vitals";
+    }
+    void display() const override {
+        Person::display();
+        cout << " | Disease: " << disease << " | Current Bill: $" << bill
+             << " | Bed: " << bed_no << " | Doctor: " << doctor_name << endl;
+    }
+    void show_latest_vitals() const {
+        if (!vitals_history.empty()) {
+            vitals_history.back()->show();
+            vitals_history.back()->advise();
+        } else cout << "No vitals recorded yet.\\n";
+    }
+    void show_all_vitals() const {
+        if (vitals_history.empty()) { cout << "No vitals history.\\n"; return; }
+        cout << "--- Vitals History ---\\n";
+        for(size_t i = 0; i < vitals_history.size(); ++i) {
+            cout << "[" << i+1 << "] ";
+            vitals_history[i]->show();
+        }
+    }
+    void print_summary() const {
+        cout << "ID=" << get_id() << " | Name=" << get_name() 
+             << " | Age=" << get_age() << " | Disease=" << disease 
+             << " | Bed=" << bed_no << " | Bill=$" << get_bill();
+    }
+    string serialize() const {
+        ostringstream ss;
+        ss << id << "," << name << "," << age << "," << disease << "," << bed_no << ","
+           << doctor_name << "," << initial_stay_days << "," << bill;
+        return ss.str();
+    }
+    static void total() { cout << "Total current patients: " << total_pat << endl; }
+};
+int pat::total_pat = 0;
+
+class doctor : public Person {
+protected:
+    vector<string> assigned_patients;
+public:
+    doctor(string n = "", int a = 0, string i = "NA") : Person(n, a, i) {}
+    void assign_patient(string pid) { assigned_patients.push_back(pid); }
+    void remove_patient(const string& pid) {
+        assigned_patients.erase(remove(assigned_patients.begin(), assigned_patients.end(), pid), assigned_patients.end());
+    }
+    void display() const override {
+        Person::display();
+        cout << " | Type: General | Patients: ";
+        if (assigned_patients.empty()) cout << "None";
+        else for (const auto &p : assigned_patients) cout << p << " ";
+        cout << endl;
+    }
+    string serialize() const {
+        ostringstream ss;
+        ss << id << "," << name << "," << age << ",General";
+        return ss.str();
+    }
+};
+
+class Specialist : public doctor {
+private:
+    string specialization;
+public:
+    Specialist(string n = "", int a = 0, string i = "NA", string spec = "General")
+        : doctor(n, a, i), specialization(spec) {}
+    void display() const override {
+        Person::display();
+        cout << " | Type: Specialist | *Specialization: " << specialization << "* | Patients: ";
+        if (assigned_patients.empty()) cout << "None";
+        else for (const auto &p : assigned_patients) cout << p << " ";
+        cout << endl;
+    }
+    string get_specialization() const { return specialization; }
+    string serialize() const {
+        ostringstream ss;
+        ss << id << "," << name << "," << age << ",Specialist," << specialization;
+        return ss.str();
+    }
+};
+
+float generate_bill(string disease, VitalStatus status, int days, int doctor_visits = 1) {
+    float hospital_charge = 0, accommodation = 0, medicine = 0, doctor_fee = 0;
+    if (disease == "Fever") medicine = 1000;
+    else if (disease == "Hypertension") medicine = 1200 + (days * 50);
+    else if (disease == "Heart") medicine = 3000 + (days * 100);
+    else medicine = 800;
+    if (status == VitalStatus::Critical) { hospital_charge = 5000; accommodation = 1500 * days; }
+    else if (status == VitalStatus::Warning) { hospital_charge = 2000; accommodation = 800 * days; }
+    else { hospital_charge = 500; accommodation = 500 * days; }
+    doctor_fee = 300 * doctor_visits;
+    return hospital_charge + accommodation + medicine + doctor_fee;
+}
+
+void save_discharge_record(const pat &p) {
+    try {
+        ofstream fout("discharged_patients.txt", ios::app);
+        if (!fout.is_open()) throw runtime_error("Unable to open discharge file.");
+        fout << "--- DISCHARGE RECORD ---\\n";
+        fout << "Patient Report: ID=" << p.get_id() << " | Name=" << p.get_name() 
+             << " | Age=" << p.get_age() << " | Disease=" << p.get_disease() 
+             << " | Bed=" << p.get_bed_no() << " | Bill=$" << p.get_bill() << "\\n";
+        fout << "Doctor: " << p.get_doctor_name() << "\\n";
+        fout << "Date: " << ctime(new time_t(time(0))) << "\\n";
+        fout.close();
+    } catch (const exception& e) {
+        cerr << "Error saving discharge record: " << e.what() << endl;
+    }
+}
+
+class hs {
+private:
+    vector<pat *> pats;
+    vector<doctor *> docs;
+    map<int, bool> bed_occupancy;
+public:
+    float get_input(string prompt, float min, float max) {
+        float val;
+        while (true) {
+            try {
+                cout << prompt;
+                if (!(cin >> val)) throw invalid_argument("Invalid input type.");
+                if (val < min || val > max) throw out_of_range("Value out of range.");
+                break;
+            } catch (const exception &e) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\\n');
+                cout << "*Error*: " << e.what() << " Try again.\\n";
+            }
+        }
+        return val;
+    }
+private:
+    doctor* find_doctor_by_id(const string& docid) {
+        for (auto d : docs) if (d->get_id() == docid) return d;
+        return nullptr;
+    }
+    doctor* find_doctor_by_name(const string& dname) {
+        for (auto d : docs) if (d->get_name() == dname) return d;
+        return nullptr;
+    }
+    pat* find_patient_by_id(const string& pid) {
+        for(auto p : pats) if (p->get_id() == pid) return p;
+        return nullptr;
+    }
+    doctor* find_doctor_by_spec(const string& spec) {
+        for (auto d : docs) {
+            Specialist s = dynamic_cast<Specialist>(d);
+            if (s && s->get_specialization() == spec) return d;
+        }
+        return nullptr;
+    }
+    int find_available_bed() {
+        for (int i = 1; i <= 100; ++i)
+            if (bed_occupancy.find(i) == bed_occupancy.end() || !bed_occupancy[i]) return i;
+        return 0;
+    }
+public:
+    hs() { for (int i = 1; i <= 100; ++i) bed_occupancy[i] = false; load_data(); }
+    void add_doctor() {
+        try {
+            string name, id, spec;
+            int age, type;
+            cout << "Enter doctor name (single word): "; cin >> name;
+            age = (int)get_input("Enter age (25-100): ", 25, 100);
+            cout << "Enter doctor ID: "; cin >> id;
+            if (find_doctor_by_id(id)) throw runtime_error("Doctor ID already exists!");
+            cout << "Is this a *Specialist*? (1=Yes, 0=No): ";
+            type = (int)get_input("", 0, 1);
+            doctor *d = nullptr;
+            if (type == 1) {
+                cout << "Enter Specialization: "; cin >> spec;
+                d = new Specialist(name, age, id, spec);
+            } else d = new doctor(name, age, id);
+            docs.push_back(d);
+            cout << "Doctor saved successfully.\\n";
+        } catch (const exception& e) {
+            cerr << "Error adding doctor: " << e.what() << endl;
+        }
+    }
+    void add_patient() {
+        try {
+            string name, id, disease, docid;
+            int age, bed_attempt, days;
+            cout << "\\n--- Patient Admission ---\\n";
+            cout << "Enter patient name (single word): "; cin >> name;
+            age = (int)get_input("Enter age (0-150): ", 0, 150);
+            cout << "Enter patient ID: "; cin >> id;
+            if (find_patient_by_id(id)) throw runtime_error("Patient ID already admitted!");
+            cout << "Enter disease: "; cin >> disease;
+            days = (int)get_input("Enter estimated stay days (1-30): ", 1, 30);
+            int available_bed = find_available_bed();
+            if (available_bed == 0) throw runtime_error("Hospital is full!");
+            cout << "Available Bed assigned: " << available_bed << endl;
+            bed_attempt = available_bed;
+            bed_occupancy[bed_attempt] = true;
+            doctor *assigned = nullptr;
+            if (disease == "Heart") assigned = find_doctor_by_spec("Cardiology");
+            else if (disease == "Bone") assigned = find_doctor_by_spec("Orthopedics");
+            if (!assigned) {
+                 cout << "Enter doctor ID to assign (or 'NA'): "; cin >> docid;
+                 assigned = find_doctor_by_id(docid);
+            }
+            pat *p = new pat(name, age, id, disease, bed_attempt, days);
+            if (assigned) {
+                p->assign_doctor(assigned->get_name());
+                assigned->assign_patient(id);
+                cout << "*Assigned to Doctor: " << assigned->get_name() << "*\\n";
+            } else {
+                p->assign_doctor("Unassigned");
+                cout << "*Warning: Doctor unassigned.*\\n";
+            }
+            cout << "\\n--- Enter Initial Vitals ---\\n";
+            add_vitals_for_patient_logic(p);
+            pats.push_back(p);
+            cout << "\\n--- Patient Admitted ---\\n";
+            p->display();
+        } catch (const exception& e) {
+            cerr << "Error admitting patient: " << e.what() << endl;
+        }
+    }
+    void add_vitals_for_patient_logic(pat* p) {
+        try {
+            float t = get_input("Temp (30-45 C): ", 30, 45);
+            float b = get_input("BP (50-250 mmHg): ", 50, 250);
+            float h = get_input("HR (30-200 bpm): ", 30, 200);
+            float o = get_input("Oxy (50-100 %): ", 50, 100);
+            float w = get_input("Weight (kg): ", 2, 300);
+            float ht = get_input("Height (m): ", 0.5, 2.5);
+            vit *v = new vit(t, b, h, o, w, ht);
+            p->add_vitals(v);
+            float total_bill = generate_bill(p->get_disease(), p->get_latest_status(), p->get_stay_days(), 1);
+            p->set_bill(total_bill);
+            cout << "Vitals recorded and bill updated.\\n";
+            p->show_latest_vitals();
+        } catch (const exception& e) {
+            cerr << "Error adding vitals: " << e.what() << endl;
+        }
+    }
+    void add_vitals_to_patient() {
+        try {
+            string id;
+            cout << "Enter patient ID: "; cin >> id;
+            pat *p = find_patient_by_id(id);
+            if (!p) throw runtime_error("Patient not found.");
+            cout << "\\n--- Recording New Vitals ---\\n";
+            add_vitals_for_patient_logic(p);
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+    void show_patients() {
+        try {
+            if (pats.empty()) throw runtime_error("No current patients.");
+            cout << "\\n--- All Active Patient Records ---\\n";
+            for (auto p : pats) {
+                p->display();
+                p->show_latest_vitals();
+                cout << "SUMMARY: ";
+                p->print_summary();
+                cout << endl << "--------------------------------\\n";
+            }
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+    void show_doctors() {
+        try {
+            if (docs.empty()) throw runtime_error("No doctor records found.");
+            cout << "\\n--- All Doctor Records ---\\n";
+            for (auto d : docs) d->display();
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+    void search_patient() {
+        try {
+            string id;
+            cout << "Enter patient ID: "; cin >> id;
+            pat *p = find_patient_by_id(id);
+            if (!p) throw runtime_error("Patient not found.");
+            cout << "\\n--- Patient Found ---\\n";
+            p->display();
+            p->show_latest_vitals();
+            p->show_all_vitals();
+            cout << "\\nDetailed Summary: ";
+            p->print_summary();
+            cout << endl;
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+        }
+    }
+    void discharge_patient() {
+        try {
+            string id;
+            cout << "\\n--- Patient Discharge ---\\n";
+            cout << "Enter patient ID: "; cin >> id;
+            pat *p = nullptr;
+            size_t index = 0;
+            for (size_t i = 0; i < pats.size(); ++i)
+                if (pats[i]->get_id() == id) { p = pats[i]; index = i; break; }
+            if (!p) throw runtime_error("Patient not found.");
+            doctor *d = find_doctor_by_name(p->get_doctor_name());
+            if (d) d->remove_patient(id);
+            bed_occupancy[p->get_bed_no()] = false;
+            float final_bill = generate_bill(p->get_disease(), p->get_latest_status(), p->get_stay_days(), 3);
+            p->set_bill(final_bill);
+            cout << "Final Bill: $" << p->get_bill() << endl;
+            save_discharge_record(*p);
+            delete pats[index];
+            pats.erase(pats.begin() + index);
+            cout << "Patient discharged successfully.\\n";
+        } catch (const exception& e) {
+            cerr << "Error discharging patient: " << e.what() << endl;
+        }
+    }
+    void save_data() {
+        try {
+            ofstream pf("patients_data.txt"), df("doctors_data.txt");
+            if (!pf.is_open() || !df.is_open()) throw runtime_error("Error opening save files.");
+            for (auto p : pats) pf << p->serialize() << endl;
+            for (auto d : docs) df << d->serialize() << endl;
+            pf.close(); df.close();
+        } catch (const exception& e) {
+            cerr << "Error saving data: " << e.what() << endl;
+        }
+    }
+    void load_data() {
+        try {
+            ifstream pf("patients_data.txt"), df("doctors_data.txt");
+            string line;
+            if (df.is_open()) {
+                while (getline(df, line)) {
+                    stringstream ss(line);
+                    string id, name, age, type, spec;
+                    getline(ss, id, ','); getline(ss, name, ','); getline(ss, age, ','); getline(ss, type, ',');
+                    if (type == "Specialist") { getline(ss, spec, ','); docs.push_back(new Specialist(name, stoi(age), id, spec)); }
+                    else docs.push_back(new doctor(name, stoi(age), id));
+                }
+                df.close();
+            }
+            if (pf.is_open()) {
+                while (getline(pf, line)) {
+                    stringstream ss(line);
+                    string id, name, disease, doc, age, bed, days, bill;
+                    getline(ss, id, ','); getline(ss, name, ','); getline(ss, age, ','); getline(ss, disease, ',');
+                    getline(ss, bed, ','); getline(ss, doc, ','); getline(ss, days, ','); getline(ss, bill, ',');
+                    pat* p = new pat(name, stoi(age), id, disease, stoi(bed), stoi(days));
+                    p->assign_doctor(doc);
+                    p->set_bill(stof(bill));
+                    pats.push_back(p);
+                    bed_occupancy[stoi(bed)] = true;
+                }
+                pf.close();
+            }
+        } catch (const exception& e) {
+            cerr << "Error loading data: " << e.what() << endl;
+        }
+    }
+    void exit_system() {
+        save_data();
+        cout << "\\nAll data saved successfully.\\nExiting system...\\n";
+    }
+};
+
+int main() {
+    hs hospital;
+    int ch;
+    do {
+        try {
+            cout << "\\n--- HOSPITAL SYSTEM MENU ---\\n"
+                 << "1. Add Doctor\\n2. Add Patient\\n3. Add Vitals\\n4. Show Patients\\n"
+                 << "5. Show Doctors\\n6. Search Patient\\n7. Show Patient Vitals History\\n"
+                 << "8. Discharge Patient\\n0. Exit\\nEnter choice: ";
+            if (!(cin >> ch)) throw invalid_argument("Invalid input.");
+            switch (ch) {
+                case 1: hospital.add_doctor(); break;
+                case 2: hospital.add_patient(); break;
+                case 3: hospital.add_vitals_to_patient(); break;
+                case 4: hospital.show_patients(); break;
+                case 5: hospital.show_doctors(); break;
+                case 6: hospital.search_patient(); break;
+                case 7: hospital.search_patient(); break;
+                case 8: hospital.discharge_patient(); break;
+                case 0: hospital.exit_system(); break;
+                default: cout << "Invalid choice.\\n"; break;
+            }
+        } catch (const exception& e) {
+            cerr << "Error: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::m`;
+/* -----------------------------
+   End of cppCode variable
+   ----------------------------- */
+
+/* Helper to escape HTML */
+function escHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* Create code slides from cppCode */
+function createCodeSlides(codeStr, linesPerPage=34){
+  const lines = codeStr.split('\\n');
+  const pages = Math.ceil(lines.length / linesPerPage);
+  const slides = [];
+  for(let p=0;p<pages;p++){
+    const start = p*linesPerPage;
+    const end = Math.min(start+linesPerPage, lines.length);
+    const slice = lines.slice(start,end).map(s=>escHtml(s)).join('\\n');
+    const section = document.createElement('section');
+    section.className = 'slide';
+    section.dataset.title = `Code — Part ${p+1}`;
+    section.innerHTML = `
+      <div>
+        <div class="code-header">
+          <div style="font-weight:800">C++ Source (Part ${p+1} of ${pages})</div>
+          <div class="chip">Page ${p+1}/${pages}</div>
+        </div>
+        <pre><code>${slice}</code></pre>
+      </div>
+    `;
+    slides.push(section);
+    generatedContainer.appendChild(section);
+  }
+  return slides;
+}
+
+/* generate code slides with default LINES_PER_PAGE (adjust if you want) */
+const LINES_PER_PAGE = 34;
+dynamicSlides = createCodeSlides(cppCode, LINES_PER_PAGE);
+
+/* combine base slides (static ones) and dynamic slides */
+allSlides = slides.concat(dynamicSlides);
+allSlides = Array.from(document.querySelectorAll('.slide')); // recompute full list in DOM order
+
+/* Update UI indicator and show slide */
+function showSlide(i){
+  if(i < 0) i = 0;
+  if(i >= allSlides.length) i = allSlides.length - 1;
+  current = i;
+  allSlides.forEach((s, idx)=>{
+    s.classList.toggle('active', idx === current);
+  });
+  pageIndicator.textContent = `Slide ${current+1} / ${allSlides.length}`;
+  backBtn.disabled = (current === 0);
+  nextBtn.disabled = (current === allSlides.length - 1);
+  backBtn.style.opacity = backBtn.disabled ? 0.6 : 1;
+  nextBtn.style.opacity = nextBtn.disabled ? 0.6 : 1;
+
+  // scroll top of container for better UX
+  document.getElementById('stage').scrollTop = 0;
+}
+
+/* navigation handlers */
+backBtn.onclick = ()=> showSlide(current - 1);
+nextBtn.onclick = ()=> showSlide(current + 1);
+
+/* keyboard arrows */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight') showSlide(current + 1);
+  if(e.key === 'ArrowLeft') showSlide(current - 1);
+});
+
+/* init */
+showSlide(0);
+
+/* Allow clicking slide titles to jump (optional) */
+document.querySelectorAll('[data-title]').forEach((el, idx)=>{
+  el.style.cursor = 'default';
+});
+</script>
+</body>
+</html>
